@@ -14,8 +14,27 @@
  // continue play?
 
 function TicTacToe() {
-  this.claim = function (space_id) {
-    console.log('claimed: ', space_id)
+
+  this.board = {}
+
+  this.claimSpace = function (space_id) {
+    if (this.board[space_id]) {
+      console.log("already claimed")
+      return false
+    } else {
+      this.board[space_id] = 1
+      console.log(this.player() + ' claimed ', space_id)
+      this.turn++
+      console.log(this.turn % 2)
+      if (this.hasWon()) {
+        console.log('won!')
+      }
+      return true
+    }
+  }
+
+  this.hasWon = function () {
+    return false
   }
 
 }
@@ -32,14 +51,12 @@ $(document).on('ready', function() {
   var spaces = $('.space')
 
   // claiming a space
-
-  var player = 'player1'
-
   spaces.click(function (event) {
     event.preventDefault()
-
-    game.claim($(this).attr('id'))
-    $(this).addClass(player)
+    var id = $(this).attr('id')
+    if (game.claimSpace(id)) {
+      $(this).addClass(game.player())
+    }
   })
 
 
