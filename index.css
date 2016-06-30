@@ -1,3 +1,19 @@
 html {
-  
+
+}
+
+td {
+  display: inline-block;
+  border: solid 1px purple;
+  text-align: center;
+}
+
+.space {
+  display: block;
+  width: 150px;
+  height: 150px;
+}
+
+.player1 {
+  background-color: #937b93;
 }
