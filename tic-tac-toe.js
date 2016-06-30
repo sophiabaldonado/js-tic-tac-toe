@@ -24,6 +24,7 @@ function TicTacToe() {
       console.log(this.player() + ' claimed ', space_id)
       if (this.hasWon()) {
         console.log(this.player() + ' won!')
+        this.winner = this.player()
       }
       this.turn++
 
@@ -58,6 +59,10 @@ TicTacToe.prototype = {
   },
   player: function () {
     return this.turn % 2 === 0 ? 'player1' : 'player2'
+  },
+  winner: null,
+  draw: function () {
+    return this.turn >= 9
   }
 }
 
@@ -65,18 +70,39 @@ TicTacToe.prototype = {
 $(document).on('ready', function() {
   console.log('create and begin the game here!')
 
-  var game = new TicTacToe()
+  function newGame() {
+    var game = new TicTacToe()
+    return game
+  }
+
+  var game = newGame()
   var board = $('.board')
   var spaces = $('.space')
+  var announce = $('#announce')
 
-  // claiming a space
+  announce.text('Get Ready!')
+
+  function name(player) {
+    var name = player === 'player1' ? 'Azula' : 'Zuko'
+    return name
+  }
+
+  // claiming a space/play a turn
   spaces.click(function (event) {
     event.preventDefault()
     var id = $(this).attr('id')
     if (game.claimSpace(id)) {
       $(this).addClass(game.player())
+      if (game.hasWon()) {
+        announce.text(name(game.winner) + ' won!')
+      } else if (game.draw()) {
+        announce.text("It's a draw!")
+      } else {
+        announce.text(name(game.player()) + "'s turn!")
+      }
+    } else {
+      announce.text('That spot is already taken!')
     }
   })
-
 
 })
