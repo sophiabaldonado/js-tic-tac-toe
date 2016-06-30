@@ -15,25 +15,35 @@
 
 function TicTacToe() {
 
-  this.board = {}
-
   this.claimSpace = function (space_id) {
-    if (this.board[space_id]) {
+    if (typeof(this.board[space_id]) !== 'number') {
       console.log("already claimed")
       return false
     } else {
-      this.board[space_id] = 1
+      this.board[space_id] = this.player()
       console.log(this.player() + ' claimed ', space_id)
-      this.turn++
-      console.log(this.turn % 2)
       if (this.hasWon()) {
-        console.log('won!')
+        console.log(this.player() + ' won!')
       }
+      this.turn++
+
       return true
     }
   }
 
   this.hasWon = function () {
+    //check diagonal -- 4 and 2 apart
+    if (this.board[1] === this.board[5] && this.board[5] === this.board[9]) { return true }
+    if (this.board[3] === this.board[5] && this.board[5] === this.board[7]) { return true }
+    // check horizontal -- differences are 1
+    if (this.board[1] === this.board[2] && this.board[2] === this.board[3]) { return true }
+    if (this.board[4] === this.board[5] && this.board[5] === this.board[6]) { return true }
+    if (this.board[7] === this.board[8] && this.board[8] === this.board[9]) { return true }
+    // check vertical -- 3 apart
+    if (this.board[1] === this.board[4] && this.board[4] === this.board[7]) { return true }
+    if (this.board[2] === this.board[5] && this.board[5] === this.board[8]) { return true }
+    if (this.board[3] === this.board[6] && this.board[6] === this.board[9]) { return true }
+
     return false
   }
 
@@ -41,6 +51,11 @@ function TicTacToe() {
 
 TicTacToe.prototype = {
   turn: 0,
+  board: {
+    1: 1, 2: 2, 3: 3,
+    4: 4, 5: 5, 6: 6,
+    7: 7, 8: 8, 9: 9
+  },
   player: function () {
     return this.turn % 2 === 0 ? 'player1' : 'player2'
   }
