@@ -40,6 +40,10 @@ function TicTacToe() {
 }
 
 TicTacToe.prototype = {
+  turn: 0,
+  player: function () {
+    return this.turn % 2 === 0 ? 'player1' : 'player2'
+  }
 }
 
 // jQ
