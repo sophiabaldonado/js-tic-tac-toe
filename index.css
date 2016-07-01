@@ -20,12 +20,28 @@ body {
 
 h1 {
   font-size: 2.8rem;
-  margin: 1rem;
+  margin: 0;
   transition: all 2s ease-out;
+}
+
+h2, h3 {
+  margin: 0;
 }
 
 .winner {
   transform: scale(1.5);
+}
+
+.container {
+  overflow: auto;
+}
+
+.section {
+  display: inline-block;
+}
+
+.score {
+  margin: 0 2rem;
 }
 
 .board {
@@ -90,7 +106,7 @@ button#restart {
   font-family: 'Crete Round', serif;
   transition: all .5ms linear;
   margin: auto;
-  display: block;
+  display: inline-block;
 }
 
 button#restart:hover {

@@ -80,6 +80,11 @@ $(document).on('ready', function() {
     return name
   }
 
+  score = {
+    player1: 0,
+    player2: 0
+  }
+
   // claiming a space/play a turn
   spaces.click(function (event) {
     event.preventDefault()
@@ -89,6 +94,8 @@ $(document).on('ready', function() {
       if (game.hasWon()) {
         announce.text(name(game.winner) + ' won!')
         announce.addClass('winner')
+        score[game.winner]++
+        $('#' + game.winner).text(score[game.winner])
       } else if (game.draw()) {
         announce.text("It's a draw!")
       } else {
