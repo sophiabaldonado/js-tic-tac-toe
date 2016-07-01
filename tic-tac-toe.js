@@ -32,6 +32,12 @@ function TicTacToe() {
     }
   }
 
+  this.board = {
+    1: 1, 2: 2, 3: 3,
+    4: 4, 5: 5, 6: 6,
+    7: 7, 8: 8, 9: 9
+  }
+
   this.hasWon = function () {
     //check diagonal -- 4 and 2 apart
     if (this.board[1] === this.board[5] && this.board[5] === this.board[9]) { return true }
@@ -52,11 +58,6 @@ function TicTacToe() {
 
 TicTacToe.prototype = {
   turn: 0,
-  board: {
-    1: 1, 2: 2, 3: 3,
-    4: 4, 5: 5, 6: 6,
-    7: 7, 8: 8, 9: 9
-  },
   player: function () {
     return this.turn % 2 === 0 ? 'player1' : 'player2'
   },
@@ -68,19 +69,28 @@ TicTacToe.prototype = {
 
 // jQ
 $(document).on('ready', function() {
-  console.log('create and begin the game here!')
-
-  function newGame() {
-    var game = new TicTacToe()
-    return game
-  }
-
   var game = newGame()
   var board = $('.board')
   var spaces = $('.space')
   var announce = $('#announce')
+  setupDisplay()
 
-  announce.text('Get Ready!')
+  function newGame() {
+    game = new TicTacToe()
+    return game
+  }
+
+  function setupDisplay() {
+    announce.text('Get Ready!')
+    $('.space').each(function() {
+      if ($(this).hasClass('player1')) {
+        $(this).removeClass('player1')
+      }
+      if ($(this).hasClass('player2')) {
+        $(this).removeClass('player2')
+      }
+    })
+  }
 
   function name(player) {
     var name = player === 'player1' ? 'Azula' : 'Zuko'
@@ -103,6 +113,12 @@ $(document).on('ready', function() {
     } else {
       announce.text('That spot is already taken!')
     }
+  })
+
+  // reset game
+  $("#restart").click(function(event) {
+    newGame()
+    setupDisplay()
   })
 
 })

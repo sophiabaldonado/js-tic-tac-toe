@@ -2,16 +2,16 @@ html {
 
 }
 
-td {
+.space {
   display: inline-block;
+  width: 150px;
+  height: 150px;
   border: solid 1px purple;
   text-align: center;
 }
 
-.space {
-  display: block;
-  width: 150px;
-  height: 150px;
+.space:hover {
+  cursor: pointer;
 }
 
 .player1 {
