@@ -66,7 +66,7 @@ $(document).on('ready', function() {
   }
 
   function setupDisplay() {
-    announce.text('Get Ready!')
+    announce.text('Ready, Set, Go')
     $('.space').each(function() {
       if ($(this).hasClass('player1')) {
         $(this).removeClass('player1')
