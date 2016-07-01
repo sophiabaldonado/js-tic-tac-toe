@@ -1,7 +1,10 @@
 function TicTacToe() {
 
   this.claimSpace = function (space_id) {
-    if (typeof(this.board[space_id]) !== 'number') {
+    if (this.hasWon()) {
+      console.log("game has ended")
+      return false
+    } else if (typeof(this.board[space_id]) !== 'number') {
       console.log("already claimed")
       return false
     } else {
@@ -95,7 +98,9 @@ $(document).on('ready', function() {
       } else {
         announce.text(name(game.player()) + "'s turn!")
       }
-    } else {
+    } else if (game.hasWon()){
+      announce.text('The game has ended.')
+    } else {    
       announce.text('That spot is already taken!')
     }
   })
