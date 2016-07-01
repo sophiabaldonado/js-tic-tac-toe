@@ -1,18 +1,3 @@
-// what is a turn?
-
-// determine which player has a turn
-
-// select a space
- // space available?
- // space advantage
-// claim space using player identifier
-// check win/loss state
- // what is a win?
- // what is a draw?
- // what is a loss?
- // communicate outcome
- // continue play?
-
 function TicTacToe() {
 
   this.claimSpace = function (space_id) {
