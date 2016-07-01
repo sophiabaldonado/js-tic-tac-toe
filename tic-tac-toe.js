@@ -2,16 +2,12 @@ function TicTacToe() {
 
   this.claimSpace = function (space_id) {
     if (this.hasWon()) {
-      console.log("game has ended")
       return false
     } else if (typeof(this.board[space_id]) !== 'number') {
-      console.log("already claimed")
       return false
     } else {
       this.board[space_id] = this.player()
-      console.log(this.player() + ' claimed ', space_id)
       if (this.hasWon()) {
-        console.log(this.player() + ' won!')
         this.winner = this.player()
       }
       this.turn++
@@ -58,7 +54,6 @@ TicTacToe.prototype = {
 // jQ
 $(document).on('ready', function() {
   var game = newGame()
-  var board = $('.board')
   var spaces = $('.space')
   var announce = $('#announce')
   setupDisplay()
@@ -81,7 +76,7 @@ $(document).on('ready', function() {
   }
 
   function name(player) {
-    var name = player === 'player1' ? 'Azula' : 'Zuko'
+    var name = player === 'player1' ? 'Blue' : 'Red'
     return name
   }
 
@@ -93,15 +88,16 @@ $(document).on('ready', function() {
       $(this).addClass(game.player())
       if (game.hasWon()) {
         announce.text(name(game.winner) + ' won!')
+        announce.addClass('winner')
       } else if (game.draw()) {
         announce.text("It's a draw!")
       } else {
-        announce.text(name(game.player()) + "'s turn!")
+        announce.text(name(game.player()) + "'s turn")
       }
     } else if (game.hasWon()){
-      announce.text('The game has ended.')
-    } else {    
-      announce.text('That spot is already taken!')
+      announce.text('The game has ended')
+    } else {
+      announce.text('That spot is already taken')
     }
   })
 
