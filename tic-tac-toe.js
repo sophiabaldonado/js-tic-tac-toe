@@ -83,7 +83,7 @@ $(document).on('ready', function() {
   setupDisplay()
 
   function newGame() {
-    game = new TicTacToe(1)
+    game = new TicTacToe(2)
     return game
   }
 
