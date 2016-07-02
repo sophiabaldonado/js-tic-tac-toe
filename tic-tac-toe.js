@@ -1,25 +1,50 @@
-function TicTacToe() {
-
-  this.claimSpace = function (space_id) {
-    if (this.hasWon()) {
-      return false
-    } else if (typeof(this.board[space_id]) !== 'number') {
-      return false
-    } else {
-      this.board[space_id] = this.player()
-      if (this.hasWon()) {
-        this.winner = this.player()
-      }
-      this.turn++
-
-      return true
-    }
-  }
+function TicTacToe(mode) {
+  var thisGame = this
+  this.mode = mode
 
   this.board = {
     1: 1, 2: 2, 3: 3,
     4: 4, 5: 5, 6: 6,
     7: 7, 8: 8, 9: 9
+  }
+
+  this.claimSpace = function (space_id) {
+    if (this.mode === 1 && this.player() === 'player2') {
+
+      function chooseId() {
+        var c = Math.floor(Math.random() * 9) + 1
+        console.log('c: ', c)
+        console.log('won: ', thisGame.hasWon())
+        if (typeof(thisGame.board[c]) === 'number') { return c }
+        if (thisGame.hasWon()) { return }
+        chooseId()
+      }
+      var compId = chooseId()
+      console.log('compid: ', compId)
+      this.board[compId] = this.player()
+      if (this.hasWon()) {
+        this.winner = this.player()
+      }
+      this.turn++
+
+      return compId
+    } else {
+
+
+      if (this.hasWon()) {
+        return false
+      } else if (typeof(this.board[space_id]) !== 'number') {
+        return false
+      } else {
+        this.board[space_id] = this.player()
+        if (this.hasWon()) {
+          this.winner = this.player()
+        }
+        this.turn++
+
+        return true
+      }
+    }
   }
 
   this.hasWon = function () {
@@ -37,7 +62,6 @@ function TicTacToe() {
 
     return false
   }
-
 }
 
 TicTacToe.prototype = {
@@ -59,7 +83,7 @@ $(document).on('ready', function() {
   setupDisplay()
 
   function newGame() {
-    game = new TicTacToe()
+    game = new TicTacToe(1)
     return game
   }
 
@@ -73,6 +97,9 @@ $(document).on('ready', function() {
         $(this).removeClass('player2')
       }
     })
+    if (announce.hasClass('winner')) {
+      announce.removeClass('winner')
+    }
   }
 
   function name(player) {
@@ -100,12 +127,16 @@ $(document).on('ready', function() {
         announce.text("It's a draw!")
       } else {
         announce.text(name(game.player()) + "'s turn")
+        if (game.mode === 1) {
+          $('#' + game.claimSpace()).addClass(game.player())
+        }
       }
     } else if (game.hasWon()){
       announce.text('The game has ended')
     } else {
       announce.text('That spot is already taken')
     }
+    console.log(game.board)
   })
 
   // reset game
@@ -113,5 +144,4 @@ $(document).on('ready', function() {
     newGame()
     setupDisplay()
   })
-
 })
