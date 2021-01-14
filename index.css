@@ -22,6 +22,7 @@ h1 {
   font-size: 2.8rem;
   margin: 0;
   transition: all 2s ease-out;
+  margin-top: 3em;
 }
 
 h2, h3 {
